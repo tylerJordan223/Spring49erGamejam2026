@@ -39,11 +39,6 @@ public class MagicianController : MonoBehaviour
         input.Player.Disable();
     }
 
-    private void Update()
-    {
-        Debug.Log(rb.linearVelocity.y);
-    }
-
     private void FixedUpdate()
     {
         MovePlayer();
