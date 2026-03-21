@@ -1,8 +1,16 @@
 using Ginput;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class MagicianController : MonoBehaviour
 {
+    //singleton
+    public static MagicianController instance;
+    private void Awake()
+    {
+        
+    }
+
     [Header("Player Objects")]
     public GameObject player_obj;
     public SpriteRenderer player_sprite;
@@ -16,6 +24,7 @@ public class MagicianController : MonoBehaviour
     private void OnEnable()
     {
         input = new GlobalInput();
+        input.Player.Jump.performed += OnJump;
         input.Player.Enable();
     }
 
@@ -34,5 +43,10 @@ public class MagicianController : MonoBehaviour
         Vector2 movement = input.Player.Move.ReadValue<Vector2>();
 
         player_obj.transform.position += new Vector3(movement.x * speed * Time.deltaTime, 0, 0);
+    }
+
+    private void OnJump(InputAction.CallbackContext context)
+    {
+        rb.AddForce(Vector2.up * 10f, ForceMode2D.Impulse);
     }
 }
