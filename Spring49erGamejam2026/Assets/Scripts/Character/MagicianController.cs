@@ -35,9 +35,13 @@ public class MagicianController : MonoBehaviour
 
     private void OnEnable()
     {
+        //initialize input with necessary function
         input = new GameInput();
         input.Player.Jump.performed += OnJump;
         input.Player.Melee.performed += OnAttack;
+        input.Player.Throw.performed += OnThrow;
+        input.Player.Stash.performed += OnSwap;
+        input.Player.Debug.performed += AddCard;
         input.Player.Enable();
     }
 
@@ -54,8 +58,6 @@ public class MagicianController : MonoBehaviour
 
     private void Update()
     {
-        Debug.Log(jumping);
-
         //refresh cooldowns
         if(attack_cooldown > 0)
         {
@@ -89,9 +91,22 @@ public class MagicianController : MonoBehaviour
         }
     }
 
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if(collision.collider.CompareTag("Ground"))
+        {
+            //make sure it happened while you were jumping
+            if(jumping)
+            {
+                jumping = false;
+            }
+        }
+    }
+
+    //INPUT CONTROLS//
     private void OnJump(InputAction.CallbackContext context)
     {
-        if(!jumping)
+        if (!jumping)
         {
             rb.AddForce(Vector2.up * 10f, ForceMode2D.Impulse);
             jumping = true;
@@ -100,7 +115,7 @@ public class MagicianController : MonoBehaviour
 
     private void OnAttack(InputAction.CallbackContext context)
     {
-        if(attack_cooldown < 0)
+        if (attack_cooldown < 0)
         {
             StartCoroutine(Attack());
         }
@@ -115,15 +130,21 @@ public class MagicianController : MonoBehaviour
         attack_cooldown = 1f;
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    //function to throw a card
+    private void OnThrow(InputAction.CallbackContext context)
     {
-        if(collision.collider.CompareTag("Ground"))
-        {
-            //make sure it happened while you were jumping
-            if(jumping)
-            {
-                jumping = false;
-            }
-        }
+        CardManager.instance.ThrowCard();
+    }
+
+    //function to swap a card
+    private void OnSwap(InputAction.CallbackContext context)
+    {
+        CardManager.instance.SwapBackup();
+    }
+
+    //debug function to add a card
+    private void AddCard(InputAction.CallbackContext context)
+    {
+        CardManager.instance.AddCard();
     }
 }

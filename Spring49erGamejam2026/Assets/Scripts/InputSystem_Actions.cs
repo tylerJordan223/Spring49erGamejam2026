@@ -134,7 +134,7 @@ namespace Ginput
                     ""name"": ""Crouch"",
                     ""type"": ""Button"",
                     ""id"": ""27c5f898-bc57-4ee1-8800-db469aca5fe3"",
-                    ""expectedControlType"": ""Button"",
+                    ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
@@ -170,6 +170,33 @@ namespace Ginput
                     ""name"": ""Melee"",
                     ""type"": ""Button"",
                     ""id"": ""641cd816-40e6-41b4-8c3d-04687c349290"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Throw"",
+                    ""type"": ""Button"",
+                    ""id"": ""e71eed8c-3f5b-4981-86e8-972b6d91d188"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Stash"",
+                    ""type"": ""Button"",
+                    ""id"": ""5622c41f-8427-489a-8849-a10c46a9bdb0"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Debug"",
+                    ""type"": ""Button"",
+                    ""id"": ""57b1ec91-a04d-40a0-8728-33d8c45119ff"",
                     ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """",
@@ -559,6 +586,39 @@ namespace Ginput
                     ""processors"": """",
                     ""groups"": ""Keyboard&Mouse"",
                     ""action"": ""Crouch"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""2a4a483c-91e9-47e0-9f83-fd4c8fb249f3"",
+                    ""path"": ""<Keyboard>/space"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Keyboard&Mouse"",
+                    ""action"": ""Throw"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""9f8c331d-1be7-4995-b14e-ca2e2d98ee3f"",
+                    ""path"": ""<Keyboard>/f"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Keyboard&Mouse"",
+                    ""action"": ""Stash"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""50a42a2e-6f1f-4526-b000-6f7decdf375a"",
+                    ""path"": ""<Keyboard>/ctrl"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Debug"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -1155,6 +1215,9 @@ namespace Ginput
             m_Player_Previous = m_Player.FindAction("Previous", throwIfNotFound: true);
             m_Player_Next = m_Player.FindAction("Next", throwIfNotFound: true);
             m_Player_Melee = m_Player.FindAction("Melee", throwIfNotFound: true);
+            m_Player_Throw = m_Player.FindAction("Throw", throwIfNotFound: true);
+            m_Player_Stash = m_Player.FindAction("Stash", throwIfNotFound: true);
+            m_Player_Debug = m_Player.FindAction("Debug", throwIfNotFound: true);
             // UI
             m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
             m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -1257,6 +1320,9 @@ namespace Ginput
         private readonly InputAction m_Player_Previous;
         private readonly InputAction m_Player_Next;
         private readonly InputAction m_Player_Melee;
+        private readonly InputAction m_Player_Throw;
+        private readonly InputAction m_Player_Stash;
+        private readonly InputAction m_Player_Debug;
         /// <summary>
         /// Provides access to input actions defined in input action map "Player".
         /// </summary>
@@ -1304,6 +1370,18 @@ namespace Ginput
             /// Provides access to the underlying input action "Player/Melee".
             /// </summary>
             public InputAction @Melee => m_Wrapper.m_Player_Melee;
+            /// <summary>
+            /// Provides access to the underlying input action "Player/Throw".
+            /// </summary>
+            public InputAction @Throw => m_Wrapper.m_Player_Throw;
+            /// <summary>
+            /// Provides access to the underlying input action "Player/Stash".
+            /// </summary>
+            public InputAction @Stash => m_Wrapper.m_Player_Stash;
+            /// <summary>
+            /// Provides access to the underlying input action "Player/Debug".
+            /// </summary>
+            public InputAction @Debug => m_Wrapper.m_Player_Debug;
             /// <summary>
             /// Provides access to the underlying input action map instance.
             /// </summary>
@@ -1357,6 +1435,15 @@ namespace Ginput
                 @Melee.started += instance.OnMelee;
                 @Melee.performed += instance.OnMelee;
                 @Melee.canceled += instance.OnMelee;
+                @Throw.started += instance.OnThrow;
+                @Throw.performed += instance.OnThrow;
+                @Throw.canceled += instance.OnThrow;
+                @Stash.started += instance.OnStash;
+                @Stash.performed += instance.OnStash;
+                @Stash.canceled += instance.OnStash;
+                @Debug.started += instance.OnDebug;
+                @Debug.performed += instance.OnDebug;
+                @Debug.canceled += instance.OnDebug;
             }
 
             /// <summary>
@@ -1395,6 +1482,15 @@ namespace Ginput
                 @Melee.started -= instance.OnMelee;
                 @Melee.performed -= instance.OnMelee;
                 @Melee.canceled -= instance.OnMelee;
+                @Throw.started -= instance.OnThrow;
+                @Throw.performed -= instance.OnThrow;
+                @Throw.canceled -= instance.OnThrow;
+                @Stash.started -= instance.OnStash;
+                @Stash.performed -= instance.OnStash;
+                @Stash.canceled -= instance.OnStash;
+                @Debug.started -= instance.OnDebug;
+                @Debug.performed -= instance.OnDebug;
+                @Debug.canceled -= instance.OnDebug;
             }
 
             /// <summary>
@@ -1758,6 +1854,27 @@ namespace Ginput
             /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
             /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
             void OnMelee(InputAction.CallbackContext context);
+            /// <summary>
+            /// Method invoked when associated input action "Throw" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+            /// </summary>
+            /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+            /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+            /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+            void OnThrow(InputAction.CallbackContext context);
+            /// <summary>
+            /// Method invoked when associated input action "Stash" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+            /// </summary>
+            /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+            /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+            /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+            void OnStash(InputAction.CallbackContext context);
+            /// <summary>
+            /// Method invoked when associated input action "Debug" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+            /// </summary>
+            /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+            /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+            /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+            void OnDebug(InputAction.CallbackContext context);
         }
         /// <summary>
         /// Interface to implement callback methods for all input action callbacks associated with input actions defined by "UI" which allows adding and removing callbacks.
