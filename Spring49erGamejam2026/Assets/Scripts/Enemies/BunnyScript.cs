@@ -28,4 +28,14 @@ public class BunnyScript : MonoBehaviour
             transform.position += new Vector3(speed * Time.deltaTime, 0, 0);
         }
     }
+
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+        //if its hit by the weapons
+        if(collision.CompareTag("Weapon"))
+        {
+            //kill the bunny
+            Destroy(this.gameObject);
+        }
+    }
 }

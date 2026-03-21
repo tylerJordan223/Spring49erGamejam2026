@@ -1,4 +1,5 @@
 using Ginput;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -19,9 +20,14 @@ public class MagicianController : MonoBehaviour
     public GameObject player_obj;
     public SpriteRenderer player_sprite;
     public Rigidbody2D rb;
+    public GameObject attack_zone;
 
     [Header("Player Values")]
     public float speed;
+
+    //attack values
+    public float attack_cooldown;
+    private float attack_timer;
 
     private GameInput input;
 
@@ -31,7 +37,14 @@ public class MagicianController : MonoBehaviour
     {
         input = new GameInput();
         input.Player.Jump.performed += OnJump;
+        input.Player.Melee.performed += OnAttack;
         input.Player.Enable();
+    }
+
+    private void Start()
+    {
+        //begin attacktimer
+        attack_timer = attack_cooldown;
     }
 
     private void OnDisable()
@@ -39,12 +52,23 @@ public class MagicianController : MonoBehaviour
         input.Player.Disable();
     }
 
+    private void Update()
+    {
+        Debug.Log(jumping);
+
+        //refresh cooldowns
+        if(attack_cooldown > 0)
+        {
+            attack_cooldown -= Time.deltaTime;
+        }
+    }
+
     private void FixedUpdate()
     {
         MovePlayer();
 
         //checking for fall
-        if(rb.linearVelocity.y < 0 && !jumping)
+        if(rb.linearVelocity.y < -0.5 && !jumping)
         {
             jumping = true;
         }
@@ -55,6 +79,14 @@ public class MagicianController : MonoBehaviour
         Vector2 movement = input.Player.Move.ReadValue<Vector2>();
 
         player_obj.transform.position += new Vector3(movement.x * speed * Time.deltaTime, 0, 0);
+
+        //update the attack zone if moving
+        if(movement != Vector2.zero)
+        {
+            Vector3 pos = player_obj.transform.position;
+            pos.x += (player_sprite.bounds.size.x) * Mathf.Sign(movement.x);
+            attack_zone.transform.position = pos;
+        }
     }
 
     private void OnJump(InputAction.CallbackContext context)
@@ -66,11 +98,32 @@ public class MagicianController : MonoBehaviour
         }
     }
 
+    private void OnAttack(InputAction.CallbackContext context)
+    {
+        if(attack_cooldown < 0)
+        {
+            StartCoroutine(Attack());
+        }
+    }
+
+    //coroutine to attack while animation is playing (roughly 1 second)
+    private IEnumerator Attack()
+    {
+        attack_zone.GetComponent<BoxCollider2D>().enabled = true;
+        yield return new WaitForSeconds(1f);
+        attack_zone.GetComponent<BoxCollider2D>().enabled = false;
+        attack_cooldown = 1f;
+    }
+
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if(collision.collider.CompareTag("Ground"))
         {
-            jumping = false;
+            //make sure it happened while you were jumping
+            if(jumping)
+            {
+                jumping = false;
+            }
         }
     }
 }
