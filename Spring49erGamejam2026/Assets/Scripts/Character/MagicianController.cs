@@ -19,11 +19,11 @@ public class MagicianController : MonoBehaviour
     [Header("Player Values")]
     public float speed;
 
-    private GlobalInput input;
+    private GameInput input;
 
     private void OnEnable()
     {
-        input = new GlobalInput();
+        input = new GameInput();
         input.Player.Jump.performed += OnJump;
         input.Player.Enable();
     }

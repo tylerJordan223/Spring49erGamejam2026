@@ -74,7 +74,7 @@ namespace Ginput
     /// }
     /// </code>
     /// </example>
-    public partial class @GlobalInput: IInputActionCollection2, IDisposable
+    public partial class @GameInput: IInputActionCollection2, IDisposable
     {
         /// <summary>
         /// Provides access to the underlying asset instance.
@@ -84,7 +84,7 @@ namespace Ginput
         /// <summary>
         /// Constructs a new instance.
         /// </summary>
-        public @GlobalInput()
+        public @GameInput()
         {
             asset = InputActionAsset.FromJson(@"{
     ""version"": 1,
@@ -1169,10 +1169,10 @@ namespace Ginput
             m_UI_TrackedDeviceOrientation = m_UI.FindAction("TrackedDeviceOrientation", throwIfNotFound: true);
         }
 
-        ~@GlobalInput()
+        ~@GameInput()
         {
-            UnityEngine.Debug.Assert(!m_Player.enabled, "This will cause a leak and performance issues, GlobalInput.Player.Disable() has not been called.");
-            UnityEngine.Debug.Assert(!m_UI.enabled, "This will cause a leak and performance issues, GlobalInput.UI.Disable() has not been called.");
+            UnityEngine.Debug.Assert(!m_Player.enabled, "This will cause a leak and performance issues, GameInput.Player.Disable() has not been called.");
+            UnityEngine.Debug.Assert(!m_UI.enabled, "This will cause a leak and performance issues, GameInput.UI.Disable() has not been called.");
         }
 
         /// <summary>
@@ -1262,12 +1262,12 @@ namespace Ginput
         /// </summary>
         public struct PlayerActions
         {
-            private @GlobalInput m_Wrapper;
+            private @GameInput m_Wrapper;
 
             /// <summary>
             /// Construct a new instance of the input action map wrapper class.
             /// </summary>
-            public PlayerActions(@GlobalInput wrapper) { m_Wrapper = wrapper; }
+            public PlayerActions(@GameInput wrapper) { m_Wrapper = wrapper; }
             /// <summary>
             /// Provides access to the underlying input action "Player/Move".
             /// </summary>
@@ -1447,12 +1447,12 @@ namespace Ginput
         /// </summary>
         public struct UIActions
         {
-            private @GlobalInput m_Wrapper;
+            private @GameInput m_Wrapper;
 
             /// <summary>
             /// Construct a new instance of the input action map wrapper class.
             /// </summary>
-            public UIActions(@GlobalInput wrapper) { m_Wrapper = wrapper; }
+            public UIActions(@GameInput wrapper) { m_Wrapper = wrapper; }
             /// <summary>
             /// Provides access to the underlying input action "UI/Navigate".
             /// </summary>
