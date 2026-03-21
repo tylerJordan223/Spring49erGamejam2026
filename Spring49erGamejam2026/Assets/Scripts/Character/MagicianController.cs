@@ -8,7 +8,11 @@ public class MagicianController : MonoBehaviour
     public static MagicianController instance;
     private void Awake()
     {
-        
+        if(instance)
+        {
+            DestroyImmediate(this.gameObject);
+        }
+        instance = this;
     }
 
     [Header("Player Objects")]
@@ -20,6 +24,8 @@ public class MagicianController : MonoBehaviour
     public float speed;
 
     private GameInput input;
+
+    private bool jumping;
 
     private void OnEnable()
     {
@@ -35,7 +41,18 @@ public class MagicianController : MonoBehaviour
 
     private void Update()
     {
+        Debug.Log(rb.linearVelocity.y);
+    }
+
+    private void FixedUpdate()
+    {
         MovePlayer();
+
+        //checking for fall
+        if(rb.linearVelocity.y < 0 && !jumping)
+        {
+            jumping = true;
+        }
     }
 
     private void MovePlayer()
@@ -47,6 +64,18 @@ public class MagicianController : MonoBehaviour
 
     private void OnJump(InputAction.CallbackContext context)
     {
-        rb.AddForce(Vector2.up * 10f, ForceMode2D.Impulse);
+        if(!jumping)
+        {
+            rb.AddForce(Vector2.up * 10f, ForceMode2D.Impulse);
+            jumping = true;
+        }
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if(collision.collider.CompareTag("Ground"))
+        {
+            jumping = false;
+        }
     }
 }
