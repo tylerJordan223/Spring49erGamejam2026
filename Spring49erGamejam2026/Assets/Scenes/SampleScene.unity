@@ -178,6 +178,7 @@ GameObject:
   - component: {fileID: 51337793}
   - component: {fileID: 51337795}
   - component: {fileID: 51337794}
+  - component: {fileID: 51337796}
   m_Layer: 0
   m_Name: AttackZone
   m_TagString: Weapon
@@ -305,6 +306,19 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!114 &51337796
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 51337792}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b912c631f7a93534183701f980b3c8b6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::WeaponScript
+  fragile: 0
 --- !u!1 &98752493
 GameObject:
   m_ObjectHideFlags: 0
@@ -1095,9 +1109,9 @@ MonoBehaviour:
   - {fileID: 825291879}
   max_cards: 10
   attacks:
+  - {fileID: 9081336845834508759, guid: ce45aca1ef15ce84ea0bff9ea65051ec, type: 3}
   - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 5605638565393449931, guid: 4fcfe5c770ea9884ca6643ed1006a7a3, type: 3}
   - {fileID: 5263425822014312430, guid: 4294d1b5a3251e540a70631c7dd5f48f, type: 3}
 --- !u!4 &648351114 stripped
 Transform:
