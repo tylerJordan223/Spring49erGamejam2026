@@ -2,6 +2,8 @@ using UnityEngine;
 
 public class BunnyScript : MonoBehaviour
 {
+    [SerializeField] GameObject card_drop;
+
     public float speed;
     private Transform player;
 
@@ -34,6 +36,10 @@ public class BunnyScript : MonoBehaviour
         //if its hit by the weapons
         if(collision.CompareTag("Weapon"))
         {
+            //spawn a card and place it at the bunny
+            GameObject c = Instantiate(card_drop);
+            c.transform.position = new Vector3(transform.position.x, transform.position.y + 0.5f, transform.position.z);
+
             //kill the bunny
             Destroy(this.gameObject);
         }
