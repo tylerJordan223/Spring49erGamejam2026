@@ -1110,7 +1110,7 @@ MonoBehaviour:
   max_cards: 10
   attacks:
   - {fileID: 9081336845834508759, guid: ce45aca1ef15ce84ea0bff9ea65051ec, type: 3}
-  - {fileID: 0}
+  - {fileID: 5607589056832040004, guid: 6312872b44388ae40a9bd5d6df429742, type: 3}
   - {fileID: 5605638565393449931, guid: 4fcfe5c770ea9884ca6643ed1006a7a3, type: 3}
   - {fileID: 5263425822014312430, guid: 4294d1b5a3251e540a70631c7dd5f48f, type: 3}
 --- !u!4 &648351114 stripped

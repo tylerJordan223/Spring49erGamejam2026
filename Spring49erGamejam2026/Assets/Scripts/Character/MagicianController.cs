@@ -35,7 +35,7 @@ public class MagicianController : MonoBehaviour
     public float attack_cooldown;
     private float attack_timer;
 
-    private GameInput input;
+    public GameInput input;
 
     private bool jumping;
 
