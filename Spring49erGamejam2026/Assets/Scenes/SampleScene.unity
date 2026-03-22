@@ -1095,10 +1095,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CardManager
   cards:
-  - {fileID: 21300000, guid: dc940e00a18715e4390617ea1958c76f, type: 3}
   - {fileID: 21300000, guid: 1a5a75d903758214fac7ee24a2244668, type: 3}
-  - {fileID: 21300000, guid: 4b8f810cb9021eb4a8c4855b10f948dd, type: 3}
+  - {fileID: 21300000, guid: dc940e00a18715e4390617ea1958c76f, type: 3}
   - {fileID: 21300000, guid: 87acf06d5dc7c1644aaaf8e4447972a4, type: 3}
+  - {fileID: 21300000, guid: 4b8f810cb9021eb4a8c4855b10f948dd, type: 3}
   card_count: {fileID: 1502512460}
   blank: {fileID: 21300000, guid: ac337c0ca5221c548875d7577d5afcc1, type: 3}
   active: {fileID: 1760532919}
@@ -1109,10 +1109,10 @@ MonoBehaviour:
   - {fileID: 825291879}
   max_cards: 10
   attacks:
-  - {fileID: 9081336845834508759, guid: ce45aca1ef15ce84ea0bff9ea65051ec, type: 3}
   - {fileID: 5607589056832040004, guid: 6312872b44388ae40a9bd5d6df429742, type: 3}
-  - {fileID: 5605638565393449931, guid: 4fcfe5c770ea9884ca6643ed1006a7a3, type: 3}
+  - {fileID: 9081336845834508759, guid: ce45aca1ef15ce84ea0bff9ea65051ec, type: 3}
   - {fileID: 5263425822014312430, guid: 4294d1b5a3251e540a70631c7dd5f48f, type: 3}
+  - {fileID: 5605638565393449931, guid: 4fcfe5c770ea9884ca6643ed1006a7a3, type: 3}
 --- !u!4 &648351114 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7255465332930189260, guid: 4d5c46ff1e6e5bb428b5cf2707fa5f81, type: 3}

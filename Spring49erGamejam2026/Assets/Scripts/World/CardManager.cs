@@ -63,7 +63,7 @@ public class CardManager : MonoBehaviour
         backup.sprite = blank;
 
         //initialize the first active card
-        active_attack = Random.Range(0, 4);
+        active_attack = PickACard();
         active.sprite = cards[active_attack];
 
         //initialize the deck
@@ -71,7 +71,7 @@ public class CardManager : MonoBehaviour
         for(int i = 0; i < 3; i++)
         {
             //pick a random one for each, and change the texture
-            deck[i] = Random.Range(0, 4);
+            deck[i] = PickACard();
             next_cards[i].sprite = cards[deck[i]];
         }
 
@@ -167,7 +167,7 @@ public class CardManager : MonoBehaviour
         //choose new bottom card
         if (cards_left >= 3)
         {
-            deck[deck.Length - 1] = Random.Range(0, 4);
+            deck[deck.Length - 1] = PickACard();
             next_cards[next_cards.Length - 1].sprite = cards[deck[deck.Length - 1]];
         }
         else
@@ -218,7 +218,7 @@ public class CardManager : MonoBehaviour
         //if there is no card in the active slot immediately put it there
         if(active_attack == -1)
         {
-            active_attack = Random.Range(0, 4);
+            active_attack = PickACard();
             active.sprite = cards[active_attack];
             active.color = new Color(1f, 1f, 1f, 1f);
         }
@@ -235,12 +235,37 @@ public class CardManager : MonoBehaviour
                 if (deck[i] == -1)
                 {
                     //fill in that card and break the loop
-                    deck[i] = Random.Range(0, 4);
+                    deck[i] = PickACard();
                     next_cards[i].sprite = cards[deck[i]];
                     next_cards[i].color = new Color(1f, 1f, 1f, 1f);
                     i = deck.Length;
                 }
             }
+        }
+    }
+    
+    //function that changes it so the randomness isn't equal across all cards
+    private int PickACard()
+    {
+        //generate that first value
+        int value = Random.Range(1, 101);
+
+        if(value <= 40)
+        {
+            return 0; //clubs
+        }else if(value <= 70)
+        {
+            return 1; //spades
+        }else if(value <= 90)
+        {
+            return 2; //diamonds
+        }else if(value <= 99)
+        {
+            return 3; //hearts
+        }
+        else
+        {
+            return 4; //joker
         }
     }
 }
