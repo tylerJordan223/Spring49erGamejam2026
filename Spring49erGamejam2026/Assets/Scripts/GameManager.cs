@@ -14,4 +14,12 @@ public class GameManager : MonoBehaviour
         }
         instance = this;
     }
+
+    [SerializeField] GameObject poof;
+
+    public void SpawnPoof(Transform t)
+    {
+        GameObject go = Instantiate(poof);
+        go.transform.position = t.position;
+    }
 }

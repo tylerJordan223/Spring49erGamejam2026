@@ -10,8 +10,6 @@ public class HealthbarScript : MonoBehaviour
 
     private void Update()
     {
-        Debug.Log(hearts.Count);
-
         if(hearts.Count > MagicianController.instance.health && hearts.Count > 0)
         {
             GameObject g = hearts[hearts.Count - 1];

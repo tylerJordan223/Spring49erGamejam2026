@@ -43,6 +43,8 @@ public class BunnyScript : MonoBehaviour
     private void OnDestroy()
     {
         //spawn a card and place it at the bunny
+        GameManager.instance.SpawnPoof(transform);
+
         GameObject c = Instantiate(card_drop);
         c.transform.position = new Vector3(transform.position.x, transform.position.y + 0.5f, transform.position.z);
     }
