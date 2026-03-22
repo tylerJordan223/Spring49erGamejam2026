@@ -6,10 +6,12 @@ public class BunnyScript : MonoBehaviour
 
     public float speed;
     private Transform player;
+    private bool quitCheck;
 
     private void Start()
     {
         player = MagicianController.instance.player_obj.transform;
+        quitCheck = false;
     }
 
     private void FixedUpdate()
@@ -40,8 +42,15 @@ public class BunnyScript : MonoBehaviour
         }
     }
 
+    private void OnApplicationQuit()
+    {
+        quitCheck = true;
+    }
+
     private void OnDestroy()
     {
+        if (quitCheck) return;
+
         //spawn a card and place it at the bunny
         GameManager.instance.SpawnPoof(transform);
 

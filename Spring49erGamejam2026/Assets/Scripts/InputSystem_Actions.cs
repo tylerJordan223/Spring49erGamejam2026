@@ -1139,6 +1139,34 @@ namespace Ginput
                     ""isPartOfComposite"": false
                 }
             ]
+        },
+        {
+            ""name"": ""RESET"",
+            ""id"": ""767cbb57-9c70-4547-a1b5-2690db113490"",
+            ""actions"": [
+                {
+                    ""name"": ""Restart"",
+                    ""type"": ""Button"",
+                    ""id"": ""fe00c393-433f-4361-85d6-8b26fe3f0b07"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""1db3bd22-c567-4577-8bdd-b9bd831a9228"",
+                    ""path"": ""<Keyboard>/r"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Restart"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
         }
     ],
     ""controlSchemes"": [
@@ -1230,12 +1258,16 @@ namespace Ginput
             m_UI_ScrollWheel = m_UI.FindAction("ScrollWheel", throwIfNotFound: true);
             m_UI_TrackedDevicePosition = m_UI.FindAction("TrackedDevicePosition", throwIfNotFound: true);
             m_UI_TrackedDeviceOrientation = m_UI.FindAction("TrackedDeviceOrientation", throwIfNotFound: true);
+            // RESET
+            m_RESET = asset.FindActionMap("RESET", throwIfNotFound: true);
+            m_RESET_Restart = m_RESET.FindAction("Restart", throwIfNotFound: true);
         }
 
         ~@GameInput()
         {
             UnityEngine.Debug.Assert(!m_Player.enabled, "This will cause a leak and performance issues, GameInput.Player.Disable() has not been called.");
             UnityEngine.Debug.Assert(!m_UI.enabled, "This will cause a leak and performance issues, GameInput.UI.Disable() has not been called.");
+            UnityEngine.Debug.Assert(!m_RESET.enabled, "This will cause a leak and performance issues, GameInput.RESET.Disable() has not been called.");
         }
 
         /// <summary>
@@ -1719,6 +1751,102 @@ namespace Ginput
         /// Provides a new <see cref="UIActions" /> instance referencing this action map.
         /// </summary>
         public UIActions @UI => new UIActions(this);
+
+        // RESET
+        private readonly InputActionMap m_RESET;
+        private List<IRESETActions> m_RESETActionsCallbackInterfaces = new List<IRESETActions>();
+        private readonly InputAction m_RESET_Restart;
+        /// <summary>
+        /// Provides access to input actions defined in input action map "RESET".
+        /// </summary>
+        public struct RESETActions
+        {
+            private @GameInput m_Wrapper;
+
+            /// <summary>
+            /// Construct a new instance of the input action map wrapper class.
+            /// </summary>
+            public RESETActions(@GameInput wrapper) { m_Wrapper = wrapper; }
+            /// <summary>
+            /// Provides access to the underlying input action "RESET/Restart".
+            /// </summary>
+            public InputAction @Restart => m_Wrapper.m_RESET_Restart;
+            /// <summary>
+            /// Provides access to the underlying input action map instance.
+            /// </summary>
+            public InputActionMap Get() { return m_Wrapper.m_RESET; }
+            /// <inheritdoc cref="UnityEngine.InputSystem.InputActionMap.Enable()" />
+            public void Enable() { Get().Enable(); }
+            /// <inheritdoc cref="UnityEngine.InputSystem.InputActionMap.Disable()" />
+            public void Disable() { Get().Disable(); }
+            /// <inheritdoc cref="UnityEngine.InputSystem.InputActionMap.enabled" />
+            public bool enabled => Get().enabled;
+            /// <summary>
+            /// Implicitly converts an <see ref="RESETActions" /> to an <see ref="InputActionMap" /> instance.
+            /// </summary>
+            public static implicit operator InputActionMap(RESETActions set) { return set.Get(); }
+            /// <summary>
+            /// Adds <see cref="InputAction.started"/>, <see cref="InputAction.performed"/> and <see cref="InputAction.canceled"/> callbacks provided via <param cref="instance" /> on all input actions contained in this map.
+            /// </summary>
+            /// <param name="instance">Callback instance.</param>
+            /// <remarks>
+            /// If <paramref name="instance" /> is <c>null</c> or <paramref name="instance"/> have already been added this method does nothing.
+            /// </remarks>
+            /// <seealso cref="RESETActions" />
+            public void AddCallbacks(IRESETActions instance)
+            {
+                if (instance == null || m_Wrapper.m_RESETActionsCallbackInterfaces.Contains(instance)) return;
+                m_Wrapper.m_RESETActionsCallbackInterfaces.Add(instance);
+                @Restart.started += instance.OnRestart;
+                @Restart.performed += instance.OnRestart;
+                @Restart.canceled += instance.OnRestart;
+            }
+
+            /// <summary>
+            /// Removes <see cref="InputAction.started"/>, <see cref="InputAction.performed"/> and <see cref="InputAction.canceled"/> callbacks provided via <param cref="instance" /> on all input actions contained in this map.
+            /// </summary>
+            /// <remarks>
+            /// Calling this method when <paramref name="instance" /> have not previously been registered has no side-effects.
+            /// </remarks>
+            /// <seealso cref="RESETActions" />
+            private void UnregisterCallbacks(IRESETActions instance)
+            {
+                @Restart.started -= instance.OnRestart;
+                @Restart.performed -= instance.OnRestart;
+                @Restart.canceled -= instance.OnRestart;
+            }
+
+            /// <summary>
+            /// Unregisters <param cref="instance" /> and unregisters all input action callbacks via <see cref="RESETActions.UnregisterCallbacks(IRESETActions)" />.
+            /// </summary>
+            /// <seealso cref="RESETActions.UnregisterCallbacks(IRESETActions)" />
+            public void RemoveCallbacks(IRESETActions instance)
+            {
+                if (m_Wrapper.m_RESETActionsCallbackInterfaces.Remove(instance))
+                    UnregisterCallbacks(instance);
+            }
+
+            /// <summary>
+            /// Replaces all existing callback instances and previously registered input action callbacks associated with them with callbacks provided via <param cref="instance" />.
+            /// </summary>
+            /// <remarks>
+            /// If <paramref name="instance" /> is <c>null</c>, calling this method will only unregister all existing callbacks but not register any new callbacks.
+            /// </remarks>
+            /// <seealso cref="RESETActions.AddCallbacks(IRESETActions)" />
+            /// <seealso cref="RESETActions.RemoveCallbacks(IRESETActions)" />
+            /// <seealso cref="RESETActions.UnregisterCallbacks(IRESETActions)" />
+            public void SetCallbacks(IRESETActions instance)
+            {
+                foreach (var item in m_Wrapper.m_RESETActionsCallbackInterfaces)
+                    UnregisterCallbacks(item);
+                m_Wrapper.m_RESETActionsCallbackInterfaces.Clear();
+                AddCallbacks(instance);
+            }
+        }
+        /// <summary>
+        /// Provides a new <see cref="RESETActions" /> instance referencing this action map.
+        /// </summary>
+        public RESETActions @RESET => new RESETActions(this);
         private int m_KeyboardMouseSchemeIndex = -1;
         /// <summary>
         /// Provides access to the input control scheme.
@@ -1953,6 +2081,21 @@ namespace Ginput
             /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
             /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
             void OnTrackedDeviceOrientation(InputAction.CallbackContext context);
+        }
+        /// <summary>
+        /// Interface to implement callback methods for all input action callbacks associated with input actions defined by "RESET" which allows adding and removing callbacks.
+        /// </summary>
+        /// <seealso cref="RESETActions.AddCallbacks(IRESETActions)" />
+        /// <seealso cref="RESETActions.RemoveCallbacks(IRESETActions)" />
+        public interface IRESETActions
+        {
+            /// <summary>
+            /// Method invoked when associated input action "Restart" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+            /// </summary>
+            /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+            /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+            /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+            void OnRestart(InputAction.CallbackContext context);
         }
     }
 }

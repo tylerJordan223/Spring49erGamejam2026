@@ -1051,6 +1051,34 @@
                     "isPartOfComposite": false
                 }
             ]
+        },
+        {
+            "name": "RESET",
+            "id": "767cbb57-9c70-4547-a1b5-2690db113490",
+            "actions": [
+                {
+                    "name": "Restart",
+                    "type": "Button",
+                    "id": "fe00c393-433f-4361-85d6-8b26fe3f0b07",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "1db3bd22-c567-4577-8bdd-b9bd831a9228",
+                    "path": "<Keyboard>/r",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Restart",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
         }
     ],
     "controlSchemes": [

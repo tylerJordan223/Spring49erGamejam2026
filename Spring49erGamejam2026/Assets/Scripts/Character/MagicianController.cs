@@ -47,7 +47,6 @@ public class MagicianController : MonoBehaviour
         input.Player.Melee.performed += OnAttack;
         input.Player.Throw.performed += OnThrow;
         input.Player.Stash.performed += OnSwap;
-        input.Player.Debug.performed += AddCard;
         input.Player.Enable();
     }
 
@@ -116,6 +115,7 @@ public class MagicianController : MonoBehaviour
             if(health <= 0)
             {
                 DisablePlayer();
+                GameManager.instance.GameOver();
             }
 
             //do the cooldown

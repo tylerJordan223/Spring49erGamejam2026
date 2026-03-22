@@ -1,3 +1,4 @@
+using Ginput;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
@@ -16,10 +17,16 @@ public class GameManager : MonoBehaviour
     }
 
     [SerializeField] GameObject poof;
+    public GameObject gameOverCanvas;
 
     public void SpawnPoof(Transform t)
     {
         GameObject go = Instantiate(poof);
         go.transform.position = t.position;
+    }
+
+    public void GameOver()
+    {
+        gameOverCanvas.SetActive(true);
     }
 }

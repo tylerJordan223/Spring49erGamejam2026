@@ -7,9 +7,11 @@ public class DoveScript : MonoBehaviour
     public float speed;
     private Transform player;
 
+    private bool quitCheck;
     private void Start()
     {
         player = MagicianController.instance.player_obj.transform;
+        quitCheck = false;
     }
 
     private void FixedUpdate()
@@ -33,15 +35,19 @@ public class DoveScript : MonoBehaviour
         }
     }
 
+    private void OnApplicationQuit()
+    {
+        quitCheck = true;
+    }
+
     private void OnDestroy()
     {
-        if(Application.isPlaying)
-        {
-            //spawn a card and place it at the bunny
-            GameObject c = Instantiate(card_drop);
-            c.transform.position = new Vector3(transform.position.x, transform.position.y + 0.5f, transform.position.z);
+        if (quitCheck) return;
 
-            GameManager.instance.SpawnPoof(transform);
-        }
+        //spawn a card and place it at the bunny
+        GameObject c = Instantiate(card_drop);
+        c.transform.position = new Vector3(transform.position.x, transform.position.y + 0.5f, transform.position.z);
+
+        GameManager.instance.SpawnPoof(transform);
     }
 }
