@@ -32,6 +32,10 @@ public class CardManager : MonoBehaviour
     [Header("Card Attacks")]
     [SerializeField] GameObject[] attacks;
 
+    [Header("Cooldown")]
+    public Image cooldown_cover;
+    private float finished_cooldown = 140;
+
 
     //the number of the current active card
     /*
@@ -76,7 +80,7 @@ public class CardManager : MonoBehaviour
         }
 
         //initialize timer
-        attack_delay = 1f;
+        attack_delay = 2f;
 
         //initialize other variables
         swapped = false;
@@ -88,6 +92,9 @@ public class CardManager : MonoBehaviour
         if(attack_delay > 0)
         {
             attack_delay -= Time.deltaTime;
+            Vector2 offset = cooldown_cover.rectTransform.offsetMax;
+            offset.y = -((2 - attack_delay)) * finished_cooldown;
+            cooldown_cover.rectTransform.offsetMax = offset;
         }
     }
 

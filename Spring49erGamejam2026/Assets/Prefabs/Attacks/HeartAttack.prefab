@@ -323,7 +323,7 @@ MonoBehaviour:
   text: {fileID: 2731029788734416784}
   max_fade: 0.8
   min_fade: 0.2
-  time_to_health_increase: 10
+  time_to_health_increase: 5
 --- !u!61 &6202504825706844590
 BoxCollider2D:
   m_ObjectHideFlags: 0
