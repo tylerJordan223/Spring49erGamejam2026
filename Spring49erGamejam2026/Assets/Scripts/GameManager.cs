@@ -1,4 +1,5 @@
 using Ginput;
+using TMPro;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
@@ -18,6 +19,39 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] GameObject poof;
     public GameObject gameOverCanvas;
+    public TextMeshProUGUI score_text;
+
+    private int score;
+
+    private float timer;
+    private int timeScore;
+
+    private void Start()
+    {
+        timer = 0f;
+        timeScore = 0;
+    }
+
+    private void Update()
+    {
+        timer += Time.deltaTime;
+
+        if((int)Mathf.Round(timer) > timeScore)
+        {
+            timeScore += 1;
+            AddScore(100);
+        }
+
+        if(!gameOverCanvas.activeSelf)
+        {
+            score_text.text = "SCORE: " + score;
+        }
+    }
+
+    public void AddScore(int value)
+    {
+        score += value;
+    }
 
     public void SpawnPoof(Transform t)
     {

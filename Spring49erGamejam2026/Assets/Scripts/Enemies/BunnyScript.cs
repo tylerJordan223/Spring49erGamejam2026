@@ -51,6 +51,9 @@ public class BunnyScript : MonoBehaviour
     {
         if (quitCheck) return;
 
+        //add to the score
+        GameManager.instance.AddScore(300);
+
         //spawn a card and place it at the bunny
         GameManager.instance.SpawnPoof(transform);
 

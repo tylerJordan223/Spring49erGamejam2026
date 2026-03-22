@@ -8,7 +8,7 @@ public class WeaponScript : MonoBehaviour
     {
         if(collision.CompareTag("Enemy"))
         {
-            Destroy(collision.gameObject);
+            collision.gameObject.GetComponent<EnemyScript>().KillEnemy();
 
             if(fragile)
             {

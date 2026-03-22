@@ -1,22 +1,29 @@
 using UnityEngine;
 
-public class DoveScript : MonoBehaviour
+public class EnemyScript: MonoBehaviour
 {
+    [Header("Enemy Type")]
+    public bool bunny;
+    public bool dove;
+
     [SerializeField] GameObject card_drop;
 
     public float speed;
     private Transform player;
-
-    private bool quitCheck;
     private void Start()
     {
         player = MagicianController.instance.player_obj.transform;
-        quitCheck = false;
     }
 
     private void FixedUpdate()
     {
-        MoveDove();
+        if(bunny)
+        {
+            MoveBunny();
+        }else if(dove)
+        {
+            MoveDove();
+        }
     }
 
     private void MoveDove()
@@ -24,6 +31,20 @@ public class DoveScript : MonoBehaviour
         Vector3 direction = player.position - transform.position;
 
         transform.position += direction.normalized * Time.deltaTime * speed;
+    }
+
+    private void MoveBunny()
+    {
+        Vector3 direction = player.position - transform.position;
+
+        if (direction.x < 0)
+        {
+            transform.position -= new Vector3(speed * Time.deltaTime, 0, 0);
+        }
+        else
+        {
+            transform.position += new Vector3(speed * Time.deltaTime, 0, 0);
+        }
     }
 
     private void OnTriggerStay2D(Collider2D collision)
@@ -35,19 +56,24 @@ public class DoveScript : MonoBehaviour
         }
     }
 
-    private void OnApplicationQuit()
+    public void KillEnemy()
     {
-        quitCheck = true;
-    }
-
-    private void OnDestroy()
-    {
-        if (quitCheck) return;
+        //add to the score
+        if (bunny)
+        {
+            GameManager.instance.AddScore(500);
+        }
+        else if (dove)
+        {
+            GameManager.instance.AddScore(300);
+        }
 
         //spawn a card and place it at the bunny
         GameObject c = Instantiate(card_drop);
         c.transform.position = new Vector3(transform.position.x, transform.position.y + 0.5f, transform.position.z);
 
         GameManager.instance.SpawnPoof(transform);
+
+        Destroy(this.gameObject);
     }
 }

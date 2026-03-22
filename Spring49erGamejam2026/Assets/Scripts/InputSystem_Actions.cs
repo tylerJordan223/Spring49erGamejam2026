@@ -1152,6 +1152,15 @@ namespace Ginput
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Quit"",
+                    ""type"": ""Button"",
+                    ""id"": ""ddd026f0-e95c-4224-9363-2a229b6d9c81"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -1163,6 +1172,17 @@ namespace Ginput
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Restart"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""c694f99a-6568-4042-bee7-47945365c968"",
+                    ""path"": ""<Keyboard>/q"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Quit"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -1261,6 +1281,7 @@ namespace Ginput
             // RESET
             m_RESET = asset.FindActionMap("RESET", throwIfNotFound: true);
             m_RESET_Restart = m_RESET.FindAction("Restart", throwIfNotFound: true);
+            m_RESET_Quit = m_RESET.FindAction("Quit", throwIfNotFound: true);
         }
 
         ~@GameInput()
@@ -1756,6 +1777,7 @@ namespace Ginput
         private readonly InputActionMap m_RESET;
         private List<IRESETActions> m_RESETActionsCallbackInterfaces = new List<IRESETActions>();
         private readonly InputAction m_RESET_Restart;
+        private readonly InputAction m_RESET_Quit;
         /// <summary>
         /// Provides access to input actions defined in input action map "RESET".
         /// </summary>
@@ -1771,6 +1793,10 @@ namespace Ginput
             /// Provides access to the underlying input action "RESET/Restart".
             /// </summary>
             public InputAction @Restart => m_Wrapper.m_RESET_Restart;
+            /// <summary>
+            /// Provides access to the underlying input action "RESET/Quit".
+            /// </summary>
+            public InputAction @Quit => m_Wrapper.m_RESET_Quit;
             /// <summary>
             /// Provides access to the underlying input action map instance.
             /// </summary>
@@ -1800,6 +1826,9 @@ namespace Ginput
                 @Restart.started += instance.OnRestart;
                 @Restart.performed += instance.OnRestart;
                 @Restart.canceled += instance.OnRestart;
+                @Quit.started += instance.OnQuit;
+                @Quit.performed += instance.OnQuit;
+                @Quit.canceled += instance.OnQuit;
             }
 
             /// <summary>
@@ -1814,6 +1843,9 @@ namespace Ginput
                 @Restart.started -= instance.OnRestart;
                 @Restart.performed -= instance.OnRestart;
                 @Restart.canceled -= instance.OnRestart;
+                @Quit.started -= instance.OnQuit;
+                @Quit.performed -= instance.OnQuit;
+                @Quit.canceled -= instance.OnQuit;
             }
 
             /// <summary>
@@ -2096,6 +2128,13 @@ namespace Ginput
             /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
             /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
             void OnRestart(InputAction.CallbackContext context);
+            /// <summary>
+            /// Method invoked when associated input action "Quit" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+            /// </summary>
+            /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+            /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+            /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+            void OnQuit(InputAction.CallbackContext context);
         }
     }
 }

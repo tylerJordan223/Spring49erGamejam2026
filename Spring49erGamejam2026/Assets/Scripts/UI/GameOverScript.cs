@@ -20,7 +20,13 @@ public class GameOverScript : MonoBehaviour
     {
         input = new GameInput();
         input.RESET.Restart.performed += RestartGame;
-        input.RESET.Restart.Enable();
+        input.RESET.Quit.performed += QuitGame;
+        input.RESET.Enable();
+    }
+
+    private void OnDisable()
+    {
+        input.RESET.Disable();
     }
 
     private IEnumerator FlashText()
@@ -37,5 +43,10 @@ public class GameOverScript : MonoBehaviour
     private void RestartGame(InputAction.CallbackContext context)
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+
+    private void QuitGame(InputAction.CallbackContext context)
+    {
+        Application.Quit();
     }
 }

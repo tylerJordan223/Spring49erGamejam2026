@@ -115,11 +115,20 @@ public class MagicianController : MonoBehaviour
             if(health <= 0)
             {
                 DisablePlayer();
+
+                //disappear player
+                GameManager.instance.SpawnPoof(transform);
+                player_sprite.color = new Color(1f, 1f, 1f, 0f);
+                attack_zone.GetComponent<SpriteRenderer>().color = new Color(1f, 1f, 1f, 0f);
+
                 GameManager.instance.GameOver();
             }
 
             //do the cooldown
-            StartCoroutine(damageTimeOut());
+            if(health > 0)
+            {
+                StartCoroutine(damageTimeOut());
+            }
         }
     }
 
