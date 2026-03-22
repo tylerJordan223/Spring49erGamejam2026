@@ -6,12 +6,15 @@ public class DiamondAttack : MonoBehaviour
     public List<GameObject> projectiles = new List<GameObject>();
     private List<float> velocities = new List<float>();
     public float base_velocity;
+    private float direction;
 
     private void Start()
     {
-        for(int i = 0; i < projectiles.Count; i++)
+        direction = Mathf.Sign(MagicianController.instance.attack_zone.transform.localPosition.x);
+
+        for (int i = 0; i < projectiles.Count; i++)
         {
-            velocities.Add(base_velocity * Mathf.Sign(MagicianController.instance.attack_zone.transform.localPosition.y));
+            velocities.Add(base_velocity * direction);
         }
     }
 
@@ -21,7 +24,7 @@ public class DiamondAttack : MonoBehaviour
         for(int i = 0; i < projectiles.Count; i++)
         {
             //up the velocity by a bit each frame
-            velocities[i] += (2f * ((i+1) * 0.05f)) * Mathf.Sign(MagicianController.instance.attack_zone.transform.localPosition.x);
+            velocities[i] += (2f * ((i+1) * 0.05f)) * direction;
 
             Vector3 temp = projectiles[i].transform.position;
             temp.x += velocities[i] * Time.deltaTime;

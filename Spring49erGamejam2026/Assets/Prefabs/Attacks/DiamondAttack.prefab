@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 347060612257141193}
   - component: {fileID: 1160060465978324954}
   - component: {fileID: 8417014712487590528}
+  - component: {fileID: 6156469188935538071}
   m_Layer: 0
   m_Name: Projectile3
   m_TagString: Weapon
@@ -80,7 +81,7 @@ SpriteRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 3
   m_MaskInteraction: 0
   m_Sprite: {fileID: 21300000, guid: 0a10e59d99990ac44be10431c8692461, type: 3}
   m_Color: {r: 0.5999999, g: 0.5999999, b: 0.5999999, a: 1}
@@ -138,6 +139,19 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 1, y: 0.5}
   m_EdgeRadius: 0
+--- !u!114 &6156469188935538071
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2373884091655109653}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b912c631f7a93534183701f980b3c8b6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::WeaponScript
+  fragile: 0
 --- !u!1 &5263425822014312430
 GameObject:
   m_ObjectHideFlags: 0
@@ -186,9 +200,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DiamondAttack
   projectiles:
-  - {fileID: 6731131425471613126}
-  - {fileID: 9055152415897360173}
   - {fileID: 2373884091655109653}
+  - {fileID: 9055152415897360173}
+  - {fileID: 6731131425471613126}
   base_velocity: 0
 --- !u!1 &6731131425471613126
 GameObject:
@@ -201,6 +215,7 @@ GameObject:
   - component: {fileID: 657949440768841065}
   - component: {fileID: 6523920536745418438}
   - component: {fileID: 3620502719227354617}
+  - component: {fileID: 2335190908996992180}
   m_Layer: 0
   m_Name: Projectile
   m_TagString: Weapon
@@ -270,7 +285,7 @@ SpriteRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 5
   m_MaskInteraction: 0
   m_Sprite: {fileID: 21300000, guid: 0a10e59d99990ac44be10431c8692461, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -328,6 +343,19 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 1, y: 0.5}
   m_EdgeRadius: 0
+--- !u!114 &2335190908996992180
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6731131425471613126}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b912c631f7a93534183701f980b3c8b6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::WeaponScript
+  fragile: 0
 --- !u!1 &9055152415897360173
 GameObject:
   m_ObjectHideFlags: 0
@@ -339,6 +367,7 @@ GameObject:
   - component: {fileID: 7900809083079408654}
   - component: {fileID: 2039158915595820257}
   - component: {fileID: 1426149201988595103}
+  - component: {fileID: 844697431283244447}
   m_Layer: 0
   m_Name: Projectile2
   m_TagString: Weapon
@@ -408,7 +437,7 @@ SpriteRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 4
   m_MaskInteraction: 0
   m_Sprite: {fileID: 21300000, guid: 0a10e59d99990ac44be10431c8692461, type: 3}
   m_Color: {r: 0.8415094, g: 0.8415094, b: 0.8415094, a: 1}
@@ -466,3 +495,16 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 1, y: 0.5}
   m_EdgeRadius: 0
+--- !u!114 &844697431283244447
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9055152415897360173}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b912c631f7a93534183701f980b3c8b6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::WeaponScript
+  fragile: 0
