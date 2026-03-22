@@ -24,6 +24,12 @@ public class MagicianController : MonoBehaviour
 
     [Header("Player Values")]
     public float speed;
+    public float max_health;
+    public float health;
+
+    //booleans
+    private bool can_control;
+    private bool can_damage;
 
     //attack values
     public float attack_cooldown;
@@ -49,6 +55,11 @@ public class MagicianController : MonoBehaviour
     {
         //begin attacktimer
         attack_timer = attack_cooldown;
+        health = max_health;
+
+        //initialize bools
+        can_damage = true;
+        can_control = true;
     }
 
     private void OnDisable()
@@ -67,7 +78,10 @@ public class MagicianController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        MovePlayer();
+        if(can_control)
+        {
+            MovePlayer();
+        }
 
         //checking for fall
         if(rb.linearVelocity.y < -0.5 && !jumping)
@@ -90,6 +104,34 @@ public class MagicianController : MonoBehaviour
             attack_zone.transform.position = pos;
         }
     }
+
+    public void DamagePlayer()
+    {
+        if(can_damage)
+        {
+            can_damage = false;
+
+            health -= 1;
+
+            if(health <= 0)
+            {
+                DisablePlayer();
+            }
+
+            //do the cooldown
+            StartCoroutine(damageTimeOut());
+        }
+    }
+
+    //invincibility timeout
+    private IEnumerator damageTimeOut()
+    {
+        player_sprite.color = new Color(player_sprite.color.r, player_sprite.color.r, player_sprite.color.r, 0.5f);
+        yield return new WaitForSeconds(1f);
+        player_sprite.color = new Color(player_sprite.color.r, player_sprite.color.r, player_sprite.color.r, 1f);
+        can_damage = true;
+    }
+
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
@@ -146,5 +188,18 @@ public class MagicianController : MonoBehaviour
     private void AddCard(InputAction.CallbackContext context)
     {
         CardManager.instance.AddCard();
+    }
+
+    //helper functions
+    public void EnablePlayer()
+    {
+        can_control = true;
+        input.Player.Enable();
+    }
+
+    public void DisablePlayer()
+    {
+        can_control = false;
+        input.Player.Disable();
     }
 }

@@ -2570,6 +2570,8 @@ MonoBehaviour:
   rb: {fileID: 2048033385}
   attack_zone: {fileID: 51337792}
   speed: 5
+  max_health: 3
+  health: 0
   attack_cooldown: 1
 --- !u!1 &2134047827
 GameObject:

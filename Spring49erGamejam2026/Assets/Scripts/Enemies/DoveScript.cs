@@ -36,5 +36,11 @@ public class DoveScript : MonoBehaviour
             //kill the bunny
             Destroy(this.gameObject);
         }
+
+        //check to damage player on contact
+        if(collision.CompareTag("Player"))
+        {
+            MagicianController.instance.DamagePlayer();
+        }
     }
 }
