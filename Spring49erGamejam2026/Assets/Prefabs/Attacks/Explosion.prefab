@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 4217722091179331921}
   - component: {fileID: 8363446219489773008}
   - component: {fileID: 4117778578919787927}
+  - component: {fileID: 6121021988349295726}
   m_Layer: 0
   m_Name: Explosion
   m_TagString: Untagged
@@ -81,10 +82,10 @@ SpriteRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 10
   m_MaskInteraction: 0
-  m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
-  m_Color: {r: 1, g: 0, b: 0, a: 1}
+  m_Sprite: {fileID: -858667506, guid: 6c2ccca7013435e44bca8ce5dea1c716, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -141,3 +142,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac631117acc28a248bf1a1c4460438ce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ExplosionScript
+--- !u!95 &6121021988349295726
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 105575963985991403}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 30644e11466b8eb4987aa15b5e00fe34, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
