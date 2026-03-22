@@ -100,7 +100,11 @@ public class CardManager : MonoBehaviour
             attack_delay = 2f;
 
             //use card
-            //**INSTANTIATE THE PREFAB ATTACK//
+            if (attacks[active_attack] != null)
+            {
+                GameObject go = Instantiate(attacks[active_attack]);
+                go.transform.position = MagicianController.instance.player_obj.transform.position;
+            }
 
             //update card information if there are cards left//
             if(cards_left > 0)
