@@ -247,8 +247,6 @@ public class CardManager : MonoBehaviour
     //function that changes it so the randomness isn't equal across all cards
     private int PickACard()
     {
-        return 4;
-
         //generate that first value
         int value = Random.Range(1, 101);
 
